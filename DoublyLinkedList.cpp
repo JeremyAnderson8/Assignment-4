@@ -10,8 +10,7 @@ DoublyLinkedList::DoublyLinkedList(){
 }
 
 DoublyLinkedList::~DoublyLinkedList(){
-  delete front;
-  delete back;
+
 }
 
 unsigned int DoublyLinkedList::getSize(){
@@ -19,10 +18,7 @@ unsigned int DoublyLinkedList::getSize(){
 }
 
 bool DoublyLinkedList::isEmpty(){
-  if(size == 0)
-    return true;
-  else
-    return false;
+  return (size == 0);
 }
 
 void DoublyLinkedList::printList(){
@@ -34,6 +30,22 @@ void DoublyLinkedList::printList(){
   }
 }
 
+
+int DoublyLinkedList::removeFront(){
+  ListNode *temp = front;
+  if(front->next == NULL){
+    back = NULL;
+  }
+  else{
+    front->next->previous = NULL;
+  }
+  front = front->next;
+  temp->next = NULL;
+  int tmp = temp->data;
+  delete temp;
+  size--;
+  return tmp;
+}
 void DoublyLinkedList::insertFront(int d){
    ListNode *node = new ListNode(d);
 
@@ -42,23 +54,9 @@ void DoublyLinkedList::insertFront(int d){
    }
    else{
      front->previous = node;
-     front->next = back;
+     node->next = front;
    }
    front = node;
-   size++;
- }
-
- void DoublyLinkedList::insertBack(int d){
-   ListNode *node = new ListNode(d);
-
-   if(isEmpty()){
-     front = node;
-   }
-   else{
-     back->next = node;
-     node->previous = front;
-   }
-   back = node;
    size++;
  }
 
@@ -105,3 +103,23 @@ void DoublyLinkedList::insertFront(int d){
    size--;
    return temp;
  }
+
+ int DoublyLinkedList::returnFront(){
+   ListNode *current = front;
+   int front = current->data;
+   return front;
+ }
+
+ void DoublyLinkedList::insertBack(int d){
+   size++;
+   ListNode *node = new ListNode(d);
+
+   if(isEmpty()){
+     front = node;
+   }
+   else{
+     back->next = node;
+     node->previous = back;
+   }
+   back = node;
+  }

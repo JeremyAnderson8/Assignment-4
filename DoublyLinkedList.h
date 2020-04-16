@@ -16,6 +16,7 @@ class DoublyLinkedList{
     void insertFront(int data);
     void insertBack(int data);
     int removeFront();
+    int returnFront();
     int removeBack();
     int search (int val);
     int removeAtPos(int post);
