@@ -16,10 +16,9 @@ class GenQueue{
     int getSize();
     void printQueue();
 
-    int front;
-    int rear;
+
     int mSize;
     int numElements;
 
-    int* myQueue;
+    int *myQueue;
 };
