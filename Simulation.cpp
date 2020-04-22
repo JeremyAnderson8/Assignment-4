@@ -43,29 +43,82 @@ void Simulation::getValues(string fileName){
       else if(lineNum == 3){
         numStudents = stoi(fileLine);
         for(int i = 1; i <= numStudents; i++){
-          lineNum = 3;
-          lineNum += i;
           Student *s = new Student();
           student = s->getStudent();
           studentLine->insert(student);
         }
 
         cout << "" << endl;
-        cout << "Time " << timeArrived << endl;
-        cout << "Number of Students Getting in Line: " << studentLine->getSize() << endl;
+        cout << "Students in Line: " << studentLine->getSize() << endl;
+        cout << "Number of Windows Open: " << numWindowsOpen << endl;
+        timePerStudent = getWaitTime(numStudents, lineNum);
+        cout << "Time Needed For Each Student: " << timePerStudent << endl;
 
         if(numWindowsOpen >= numStudents){
-          cout << "Number of Windows Open: " << numWindowsOpen << endl;
           cout << "" << endl;
+          //Students going to window
           for(int i = 1; i <= numStudents; i++){
              cout << "Student " << i << " Going To Window" << endl;
              numWindowsOpen--;
              cout << "Number of Windows Open: " << numWindowsOpen << endl;
              cout << "" << endl;
           }
+          //ticks
+          for(int i = timeArrived; i <= timePerStudent; i++){
+            cout << "Time " << i << endl;
+          }
+          //students leaving window
+          for(int i = 1; i <= numStudents; i++){
+             cout << "" << endl;
+             cout << "Student " << i << " Leaving Window" << endl;
+             numWindowsOpen++;
+             cout << "Number of Windows Open: " << numWindowsOpen << endl;
+             studentLine->remove();
+             cout << "" << endl;
+             cout << "Students In Line: " << studentLine->getSize() << endl;
+          }
         }
-        break;
+        else if(numWindowsOpen < numStudents){
+          temp = numWindowsOpen;
+          studentsRemaining = numStudents - temp;
+          cout << "" << endl;
+          //Students going to window
+          for(int i = 1; i <= numStudents; i++){
+             cout << "Student " << i << " Going To Window" << endl;
+             numWindowsOpen--;
+             cout << "Number of Windows Open: " << numWindowsOpen << endl;
+             cout << "" << endl;
+             if(i == temp){
+               cout << "All Windows Occupied" << endl;
+               cout << "Number Of Students Waiting: " << studentsRemaining << endl;
+               cout << "" << endl;
+               break;
+             }
+          }
+          for(int i = timeArrived; i <= timePerStudent; i++){
+            cout << "Time " << i << endl;
+          }
+
+          //Create for loop for when students leave the window
+        }
+        lineNum++;
+        continue;
       }
     }
   }
+}
+
+int Simulation::getWaitTime(int numberOfStudents, int lineNumber){
+  counter = 1;
+  lineStop = numberOfStudents;
+  while(getline(inFile, fileLine)){
+    if(counter = lineStop){
+      waitTime = stoi(fileLine);
+      break;
+    }
+    else{
+      counter++;
+    }
+  }
+  return waitTime;
 }

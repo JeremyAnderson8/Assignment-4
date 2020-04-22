@@ -8,6 +8,7 @@ class Simulation{
     ~Simulation();
 
     void getValues(string fileName);
+    int getWaitTime(int numberOfStudents, int lineNumber);
 
     int numWindowsOpen;
     int timeArrived;
@@ -20,5 +21,10 @@ class Simulation{
     int student;
     int windowsOpen;
     int windowsOccupied;
+    int waitTime;
+    int counter;
+    int lineStop;
+    int temp;
+    int studentsRemaining;
 
 };
