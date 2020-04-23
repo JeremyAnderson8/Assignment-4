@@ -9,6 +9,7 @@ class Simulation{
 
     void getValues(string fileName);
     int getWaitTime(int numberOfStudents, int lineNumber);
+    void calculateMetrics();
 
     int numWindowsOpen;
     int timeArrived;
@@ -26,5 +27,7 @@ class Simulation{
     int lineStop;
     int temp;
     int studentsRemaining;
+
+    int avgWaitTime;
 
 };

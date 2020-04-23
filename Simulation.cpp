@@ -99,8 +99,46 @@ void Simulation::getValues(string fileName){
             cout << "Time " << i << endl;
           }
 
-          //Create for loop for when students leave the window
+          for(int i = 1; i <= temp; i++){
+            cout << "" << endl;
+            cout << "Student " << i << " Leaving Window" << endl;
+            numWindowsOpen++;
+            studentLine->remove();
+          }
+          cout << "" << endl;
+          cout << "Number Of Windows Open: " << numWindowsOpen << endl;
+
+          for(int i = 1; i <= studentsRemaining; i++){
+            cout << "" << endl;
+            cout << "Student " << i + temp << " Going To Window" << endl;
+            numWindowsOpen--;
+          }
+
+          cout << "" << endl;
+          cout << "Number Of Windows Open: " << numWindowsOpen << endl;
+          cout << "" << endl;
+
+          for(int i = timeArrived; i <= timePerStudent; i++){
+            cout << "Time " << i << endl;
+          }
+
+          for(int i = 1; i <= studentsRemaining; i++){
+            cout << "" << endl;
+            cout << "Student " << i + temp << " Leaving Window " << endl;
+            numWindowsOpen++;
+            studentLine->remove();
+          }
+
+          cout << "" << endl;
+          cout << "Number Of Windows Open: " << numWindowsOpen << endl;
+          cout << "Students In Line: " << studentLine->getSize() << endl;
+
         }
+
+        cout << "" << endl;
+        cout << "Simulation Completed" << endl;
+        calculateMetrics();
+
         lineNum++;
         continue;
       }
@@ -121,4 +159,11 @@ int Simulation::getWaitTime(int numberOfStudents, int lineNumber){
     }
   }
   return waitTime;
+}
+
+void Simulation::calculateMetrics(){
+  cout << "" << endl;
+  cout << "Calclated Metrics: " << endl;
+  avgWaitTime = numStudents / timePerStudent;
+  cout << "Average Wait Time: " << avgWaitTime << endl;
 }
